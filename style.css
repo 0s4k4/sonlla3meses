@@ -1,0 +1,366 @@
+/* Estilo Ghibli - Versión Mejorada */
+:root {
+    /* Paleta de colores */
+    --ghibli-beige: #F5E6C8;
+    --ghibli-pink: #FFC9E0;
+    --ghibli-coral: #FFAAA5;
+    --ghibli-mint: #A8E6CF;
+    --ghibli-green: #77DD77;
+    --ghibli-dark: #5E4352;
+    
+    /* Z-index organizado */
+    --z-floor: 1;
+    --z-furniture: 5;
+    --z-player: 10;
+    --z-ui: 20;
+  }
+  
+  /* Reset y estructura base */
+  body, #game-container {
+    margin: 0;
+    padding: 0;
+    touch-action: none;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  #game-container {
+    position: relative;
+    background-color: var(--ghibli-beige);
+  }
+  
+  /* Paredes */
+  .wall {
+    position: absolute;
+    background-color: var(--ghibli-pink);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .wall-left, .wall-right {
+    width: 20px;
+    height: 100%;
+    top: 0;
+  }
+  
+  .wall-left { left: 0; }
+  .wall-right { right: 0; }
+  
+  .wall-top, .wall-bottom {
+    width: 100%;
+    height: 20px;
+    left: 0;
+  }
+  
+  .wall-top { top: 0; }
+  .wall-bottom { bottom: 0; }
+  
+  /* Suelo */
+  .floor {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 20px);
+    background: linear-gradient(90deg, var(--ghibli-beige) 0%, #FFEEDD 100%);
+    z-index: var(--z-floor);
+  }
+  
+  /* Muebles y decoración */
+  .furniture {
+    position: absolute;
+    z-index: var(--z-furniture);
+  }
+  
+  /* Estilo para la mesa */
+#table {
+    position: absolute;
+    width: 100px;
+    height: 70px;
+    background-color: #FFAAA5;
+    border-radius: 15px 15px 0 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 15px rgba(255, 170, 165, 0.3);
+    z-index: 5;
+}
+  
+  .decoration {
+    position: absolute;
+    z-index: var(--z-furniture);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .book {
+    width: 30px;
+    height: 40px;
+    background-color: var(--ghibli-mint);
+    border-radius: 3px;
+  }
+  
+  .plant {
+    width: 40px;
+    height: 60px;
+    background-color: var(--ghibli-green);
+    border-radius: 20px 20px 0 0;
+  }
+  
+  /* Jugador */
+  #player {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    z-index: var(--z-player);
+    will-change: transform;
+  }
+  
+  .sprite {
+    width: 100%;
+    height: 100%;
+    image-rendering: crisp-edges;
+    object-fit: contain;
+  }
+  
+  /* Controles D-Pad */
+  #d-pad {
+    position: absolute;
+    bottom: 10vh;
+    left: 5vw;
+    width: min(40vw, 180px);
+    height: min(40vw, 180px);
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    place-items: center;
+    z-index: var(--z-ui);
+  }
+  
+  .d-pad-btn {
+    width: min(65px, 80%);
+    height: min(65px, 80%);
+    background-color: rgba(255, 201, 224, 0.9);
+    border: 2px solid var(--ghibli-coral);
+    border-radius: 50%;
+    color: var(--ghibli-dark);
+    font-size: clamp(16px, 5vw, 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    box-shadow: 0 4px 8px rgba(255, 170, 165, 0.3);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .d-pad-btn:active {
+    transform: scale(0.9);
+    background-color: var(--ghibli-coral);
+  }
+  
+  .d-pad-center {
+    grid-area: 2 / 2;
+    width: 60%;
+    height: 60%;
+    background-color: rgba(255, 170, 165, 0.5);
+    border-radius: 50%;
+    z-index: -1;
+  }
+  
+  /* Posicionamiento de botones */
+  #up { grid-area: 1 / 2; }
+  #left { grid-area: 2 / 1; }
+  #down { grid-area: 3 / 2; }
+  #right { grid-area: 2 / 3; }
+  
+  /* Mejoras de accesibilidad */
+  .d-pad-btn:focus-visible {
+    outline: 2px solid var(--ghibli-dark);
+    outline-offset: 2px;
+  }
+  
+  @media (hover: hover) {
+    .d-pad-btn:hover {
+      background-color: rgba(255, 201, 224, 1);
+    }
+  }
+
+  /* #letter {
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    transform-origin: center bottom;
+    will-change: transform;
+} */
+
+#letter:hover, 
+#letter:focus {
+    transform: translateX(-50%) scale(1.2);
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+}
+
+
+.player-near #letter {
+    animation: float 2s ease-in-out infinite;
+}
+
+
+
+/* Animación de flotación */
+@keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0) scale(1.2); }
+    50% { transform: translateX(-50%) translateY(-5px) scale(1.2); }
+}
+
+
+* Animación de la carta */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -40%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.letter-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 400px; /* Altura fija */
+  max-width: 90%;
+  background: #fff9e6;
+  border: 8px solid #d4a373;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Kalam', cursive;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23fff9e6"/><path d="M0,15 L100,15 M0,30 L100,30 M0,45 L100,45 M0,60 L100,60 M0,75 L100,75 M0,90 L100,90" stroke="%23e8d5b5" stroke-width="1"/></svg>');
+}
+
+.magic-star {
+  position: absolute;
+  background: white;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.8; }
+}
+
+.letter-title {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #8b4513;
+  font-weight: bold;
+  border-bottom: 1px solid #d4a373;
+  padding-bottom: 10px;
+  flex-shrink: 0; /* Evita que el título se reduzca */
+}
+
+
+.letter-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* IMPORTANTE: Permite que el contenido interno haga scroll */
+}
+
+/* Efecto de papel viejo */
+.letter-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        rgba(227, 200, 150, 0.2),
+        rgba(227, 200, 150, 0.2) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 0; /* Importante para el scroll */
+}
+
+.letter-text-container {
+  
+  overflow-y: auto; /* Habilita el scroll vertical */
+  margin-bottom: 15px;
+  padding-right: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #d4a373 #f5f0d7;
+}
+
+.letter-text-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.letter-text-container::-webkit-scrollbar-track {
+  background: #f5f0d7;
+  border-radius: 3px;
+}
+
+.letter-text-container::-webkit-scrollbar-thumb {
+  background-color: #d4a373;
+  border-radius: 3px;
+}
+
+.letter-close {
+  background: #a67c52;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  align-self: flex-end;
+  transition: background 0.3s;
+  flex-shrink: 0; /* Evita que el botón se reduzca */
+}
+
+.letter-close:hover {
+  background: #8b4513;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+
+
+/* Efecto de tinta */
+.letter-text {
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5a3e2a;
+  min-height: 100%; /* Asegura que ocupe todo el espacio */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  display: none;
+}
+
