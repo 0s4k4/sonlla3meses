@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Cuarto Ghibli</title>
+    <title>Para mi polola :3</title>
     <meta
       name="description"
       content="Juego interactivo con temática Studio Ghibli"
@@ -173,6 +173,25 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">  </head>
   <body>
+
+
+    <audio id="bgMusic" loop>
+      <source src="assets/Studio Ghibli Wedding Entrance.mp3" type="audio/mpeg">
+      Tu navegador no soporta el elemento de audio.
+    </audio>
+    <!-- Modal de instrucciones -->
+  <div class="modal-overlay" id="instructionsOverlay">
+    <div class="instructions-modal">
+        <div class="instructions-title">Instrucciones del Juego</div>
+        <div class="instructions-content">
+            <p>¡Bienvenida a este especio que hize para ti .!</p>
+            <p>✧ Usa los botones de dirección o las flechas del teclado para moverte</p>
+            <p>✧ Acércate a la carta y presiona el botón central para leerla</p>
+            <p>✧ Disfruta de este pequeño detalle :3 tkm </p>
+        </div>
+        <button class="instructions-close" id="closeInstructions">Comenzar</button>
+    </div>
+  </div>
     
     <div id="game-container">
       <!-- Paredes -->

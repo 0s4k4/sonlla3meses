@@ -119,7 +119,9 @@ const elements = {
     },
     letterModal: document.getElementById('letterModal'),
     letterOverlay: document.getElementById('letterOverlay'),
-    letterMessage: document.getElementById('letterMessage')
+    letterMessage: document.getElementById('letterMessage'),
+    instructionsModal: document.getElementById('instructionsOverlay'),
+    closeInstructions: document.getElementById('closeInstructions')
 };
 
 // Estados del jugador
@@ -172,6 +174,20 @@ function preloadSprites() {
             const img = new Image();
             img.src = src;
         });
+    });
+}
+
+function showInstructions() {
+    elements.instructionsModal.style.display = 'block';
+    
+    // Deshabilitar controles mientras se muestran las instrucciones
+    document.removeEventListener('keydown', handleKeyDown);
+    
+    // Configurar evento para cerrar
+    elements.closeInstructions.addEventListener('click', () => {
+        elements.instructionsModal.style.display = 'none';
+        // Restaurar controles
+        document.addEventListener('keydown', handleKeyDown);
     });
 }
 
@@ -372,10 +388,12 @@ function initGame() {
     initPlayer();
     setupTouchControls();
     
+    // Mostrar instrucciones al inicio
+    showInstructions();
+    
     document.addEventListener('keydown', handleKeyDown);
     document.addEventListener('keyup', handleKeyUp);
     
-    // Posiciona la carta encima de la mesa
     positionLetterOnTable();
     gameLoop();
 }
