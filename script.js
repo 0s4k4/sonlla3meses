@@ -151,7 +151,7 @@ const playerState = {
         right: [
             'assets/sonlla_derecha_1.png',
             'assets/sonlla_derecha_2.png',
-            'assets/SONLLA_derecha_3.png'
+            'assets/sonlla_derecha_3.png'
         ]
     },
     isNearLetter: false
