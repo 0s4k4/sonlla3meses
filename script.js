@@ -376,6 +376,23 @@ function checkCollisions() {
     }
 }
 
+function initAudio() {
+    const audio = document.getElementById('audio');
+    audio.volume = 0.5; // Ajusta el volumen (0.5 = 50%)
+    
+    // Configurar el evento para el botón "Comenzar"
+    document.getElementById('closeInstructions').addEventListener('click', function() {
+        // Quitar muted y reproducir
+        audio.muted = false;
+        audio.play().then(() => {
+            console.log("Audio activado correctamente");
+        }).catch(error => {
+            console.error("Error al reproducir audio:", error);
+            // Mostrar fallback si es necesario
+        });
+    });
+}
+
 // Bucle principal del juego
 function gameLoop() {
     checkCollisions();
@@ -387,7 +404,7 @@ function gameLoop() {
 function initGame() {
     initPlayer();
     setupTouchControls();
-    
+    initAudio(); // <-- Esta línea es crucial
     // Mostrar instrucciones al inicio
     showInstructions();
     
@@ -397,6 +414,7 @@ function initGame() {
     positionLetterOnTable();
     gameLoop();
 }
+
 
 function positionLetterOnTable() {
     const tableRect = elements.table.getBoundingClientRect();
@@ -482,6 +500,36 @@ function createMagicStars() {
         overlay.appendChild(star);
     }
 }
+
+// Espera a que el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    const audio = document.getElementById('audio');
+    
+    // Intenta reproducir (silenciado inicialmente)
+    audio.play().catch(e => console.log("Autoplay silenciado permitido"));
+    
+    // Quita el silencio con la primera interacción
+    function enableSound() {
+        audio.muted = false;
+        audio.volume = 0.3; // Volumen moderado
+        // Remueve el event listener después de usarlo
+        document.removeEventListener('click', enableSound);
+        document.removeEventListener('keydown', enableSound);
+        document.removeEventListener('touchend', enableSound);
+    }
+    
+    // Configura eventos para activar sonido
+    document.addEventListener('click', enableSound);
+    document.addEventListener('keydown', enableSound);
+    document.addEventListener('touchend', enableSound);
+    
+    // Activa sonido inmediatamente al hacer clic en "Comenzar"
+    document.getElementById('closeInstructions').addEventListener('click', function() {
+        audio.muted = false;
+        audio.volume = 0.3;
+    });
+});
+
 
 
 
